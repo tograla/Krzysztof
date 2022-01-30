@@ -12,6 +12,7 @@ def usun_wielokrotnosci(co):
   """ Usuwa wielokrotności zaczynając od indeksu równego 'co' """
   # w pythonie listy są indeksowane od zera
   index = co -1
+  skreslenia = 0
   # pętla for zawsze startuje od zera, dlatego należy użyć while
   while index < len(liczby):
     print(f"sprawdzam index: {index} (liczba {liczby[index]})")
@@ -22,45 +23,57 @@ def usun_wielokrotnosci(co):
           print(f" skreślam: {liczby[index]}")
           # w oryginalnym zadaniu w Scratchu używało się 'x', ale w Pythonie oznaczałoby to konieczność konwersji typu
           liczby[index] = 0
+          skreslenia += 1
         else:
           print(f" to ta sama liczba więc omijam")
+      else:
+        print(f" to nie wielokrotność")
     else:
-      print(f" skreślone")
+      print(f" już skreślone, omijam")
     index += 1
-    print(f" Lista: {liczby}\n")
+  return skreslenia
 
 def znajdz_wyniki():
+  """ Wybieramy nieskreślone elementy z listy liczby """
   for l in liczby:
     if not (l == 0):
       wyniki.append(l)
 
 def drukuj_wyniki():
+  """ Drukujemy w wierszach po 10 elementów """
   print(f"Znaleziono {len(wyniki)} liczb pierwszych. Oto one:")
-  for w in wyniki:
-    print(w)
+  for i,v in enumerate(wyniki):
+    print(f"{v:4}, ", end='')
+    if ((i+1)%10 == 0):
+      print("")
+
+def ustaw_zakres():
+  """ Pobiera zakres do przesiewania """
+  while True:
+    zakres = int(input("Podaj ile elementów chcesz sprawdzić: "))
+    if int(zakres) > 0: break
+  # range działa bez ostatniego elementu
+  for liczba in range(1, zakres+1):
+    liczby.append(liczba)
+  print(f"Początkowa lista:")
+  print(f"{liczby}")
 
 if __name__ == "__main__":
   liczby = []
   wyniki = []
-
-  while True:
-    zakres = int(input("Podaj ile elementów chcesz sprawdzić: "))
-    if int(zakres) > 0: break
-  
-  # range działa bez ostatniego elementu
-  for liczba in range(1, zakres+1):
-    liczby.append(liczba)
-
-  print(f"Początkowa lista:")
-  print(f"{liczby}")
-
+  ustaw_zakres()
   # skreślamy pierwszy element listy i bierzemy drugi
   liczby[0] = 0
   dzielnik = liczby[1]
   # aby nie wyjśc poza zakres listy
   while (dzielnik*dzielnik) < len(liczby):
-    if not (liczby[dzielnik -1] == 0):
-      usun_wielokrotnosci(dzielnik)
+    print(f"DZIELNIK: {dzielnik}")
+    if not (liczby[dzielnik-1] == 0):
+      skreslenia = usun_wielokrotnosci(dzielnik)
+    else:
+      print(f" Ta liczba jest wielokrotnością wcześniejszej, zatem została już wykreślona.")
+    print(f" Razem skreśleń: {skreslenia}.\n Lista po wykreśleniu liczby {dzielnik}: {liczby}\n")
+    skreslenia = 0
     dzielnik += 1
   znajdz_wyniki()
   drukuj_wyniki()
