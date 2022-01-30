@@ -10,12 +10,11 @@
 
 def usun_wielokrotnosci(co):
   """ Usuwa wielokrotności zaczynając od indeksu równego 'co' """
-  print(f"analizuję {co}")
   # w pythonie listy są indeksowane od zera
   index = co -1
   # pętla for zawsze startuje od zera, dlatego należy użyć while
   while index < len(liczby):
-    print(f" sprawdzam index: {index} (liczba {liczby[index]})")
+    print(f"sprawdzam index: {index} (liczba {liczby[index]})")
     if not (liczby[index] == 0):
       if (liczby[index] % co == 0):
         print(f" jest wielokrotność!")
@@ -44,7 +43,10 @@ if __name__ == "__main__":
   liczby = []
   wyniki = []
 
-  zakres = int(input("Podaj ile elementów chcesz sprawdzić: "))
+  while True:
+    zakres = int(input("Podaj ile elementów chcesz sprawdzić: "))
+    if int(zakres) > 0: break
+  
   # range działa bez ostatniego elementu
   for liczba in range(1, zakres+1):
     liczby.append(liczba)
