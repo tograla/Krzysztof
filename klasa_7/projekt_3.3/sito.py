@@ -51,7 +51,7 @@ def ustaw_zakres():
   """ Pobiera zakres do przesiewania """
   while True:
     zakres = int(input("Podaj ile elementów chcesz sprawdzić: "))
-    if ((int(zakres) > 0) & (int(zakres) < 10000)): 
+    if ((int(zakres) > 0) & (int(zakres) <= 10000)): 
       break
     else:
       print(f"Podaj liczbę z zakresu 1 - 10.000")
